@@ -1,0 +1,42 @@
+Taquart presents
+"Korpozar (61 shades of flame)"
+
+256-byte intro for Atari XL/XE
+
+First presented in August 2025
+at the Silly Venture party
+
+Programmed by
+Piotr '0xF' Fusik <fox@scene.pl>
+
+Inspired by "Grill" 128-byte intro
+by Koala / Agenda.
+
+This uses a 61 shades mode as
+introduced in my 2015 1k intro
+"Fifty Shades of Grey".
+
+Best viewed from a distance
+on a PAL CRT.
+If you use the Altirra emulator:
+System > Configure System >
+Video > Frame blending.
+
+Polish dictionary:
+korpo (slang) = corporation
+pozar (noun) = fire
+
+Greetings:
+Zelax, New Generation, Desire,
+Agenda, LaResistance, Radiance,
+Lamers, atariBDSM, Mad Team, MEC,
+Mystic Bytes, Slight, Tristesse,
+Our 5oft, Bit Busters, DLT, SSG,
+Sword Soft, JAC!, XXL, Kaz, TDC,
+Duddie, PG, MaPa, Jell, Grzybson,
+Sikor.
+
+Coming soon to pouet.net.
+Video coming soon to YouTube.
+Source code:
+https://github.com/pfusik/korpozar

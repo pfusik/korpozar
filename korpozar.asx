@@ -1,0 +1,100 @@
+font1	equ	$2000
+font2	equ	$2400
+scr	equ	$3740
+scr_aligned	equ	scr&$ff00
+scr_end	equ	$3b00
+
+ptr	equ	$80
+shade	equ	$82
+threshold	equ	$83
+
+	org	$3600
+main
+	ldy	#0
+	sty	ptr
+	lda	#$19
+	ldx	>font1
+	stx	$2c8
+	jsr	init_font
+	lda	#$09
+	ldx	>font2
+	jsr	init_font
+
+	mva	$231	ptr+1
+	ldy	#$25
+	mva	>scr	(ptr),y
+
+loop
+	ldy	#40
+light_my_fire
+	lda	^2a
+	and	#$3f
+	sta	scr_end,y
+	dey
+	bpl	light_my_fire
+
+	lda	#17
+	cmp:rne	^4b
+;	lsr	^1a
+	ldy	<scr
+	sty	$26f
+	ldx	>scr
+fire_page
+	lda	20
+	and	#1
+	add	>font1+$300
+	sta	$2f4
+;	sta	$600
+;	inc	*-2
+	stx	fire_pixel+2
+	stx	fire_pixel+5
+	stx	fire_pixel+8
+	stx	fire_pixel+11
+	stx	fire_store+2
+fire_pixel
+	lda	scr_aligned,y
+	adc	scr_aligned+39,y
+	adc	scr_aligned+40,y
+	adc	scr_aligned+41,y
+	sbc	#2
+	bcc	fire_low
+	lsr	@
+	lsr	@
+fire_store
+	sta	scr_aligned,y
+fire_low
+	iny
+	bne	fire_pixel
+	inx
+	cpx	>scr_end
+	bcc	fire_page
+;	dec	^1a
+
+	jmp	loop
+
+init_font
+	sta	threshold
+	sty	shade
+	jsr	init_font_page
+	inx
+init_font_page
+	stx	ptr+1
+init_font_line
+	tya
+	and	#$19
+	cmp	threshold
+	lda	#0
+	scc:lda	#$10
+	adc	shade
+	sta	(ptr),y
+	iny
+	tya
+	and	#$1f
+	bne	init_font_line
+	lda	#$11
+	adc:sta	shade
+	tya
+	bne	init_font_line
+	rts
+
+	run	main
