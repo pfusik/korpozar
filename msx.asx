@@ -1,0 +1,15 @@
+audc	equ	$a5
+tempo	equ	14
+
+E	equ	$5f
+A	equ	$47
+H	equ	$3f
+Cs	equ	$38
+Gs	equ	$4b
+
+freqs
+	dta	E,A,H,Cs,H,H,H,Gs,Gs,Gs,Gs,Gs
+	dta	E,A,H,Cs,H,H,H,H,H,H,H,H
+	dta	E,A,H,Cs,H,H,H,Gs,Gs,Gs,Gs,Gs
+	dta	Gs,A,Gs,E,E,E,E,E,E,E,E,E
+	dta	0

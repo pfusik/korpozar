@@ -7,6 +7,7 @@ scr_end	equ	$3b00
 ptr	equ	$80
 shade	equ	$82
 threshold	equ	$83
+tempoctr	equ	$83
 
 	org	$3600
 main
@@ -23,8 +24,25 @@ main
 	mva	$231	ptr+1
 	ldy	#$25
 	mva	>scr	(ptr),y
+	mva	#audc	^21
+startmsx
+	mva	<freqs	noteptr
+
+playnote
+	lda	freqs
+noteptr	equ	*-2
+	beq	startmsx
+	sta	^20
+	inc	noteptr
+	mva	#tempo/2+1	tempoctr
 
 loop
+	lda	#17-3
+	cmp:rne	^4b
+
+	dec	tempoctr
+	beq	playnote
+
 	ldy	#40
 light_my_fire
 	lda	^2a
@@ -33,8 +51,6 @@ light_my_fire
 	dey
 	bpl	light_my_fire
 
-	lda	#17
-	cmp:rne	^4b
 ;	lsr	^1a
 	ldy	<scr
 	sty	$26f
@@ -96,5 +112,7 @@ init_font_line
 	tya
 	bne	init_font_line
 	rts
+
+	icl	'msx.asx'
 
 	run	main

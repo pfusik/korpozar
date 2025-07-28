@@ -9,10 +9,14 @@ at the Silly Venture party
 Programmed by
 Piotr '0xF' Fusik <fox@scene.pl>
 
+Music by
+Lukasz 'X-Ray' Sychowicz
+<xray@scene.pl>
+
 Inspired by "Grill" 128-byte intro
 by Koala / Agenda.
 
-This uses a 61 shades mode as
+This uses a 61-shade mode as
 introduced in my 2015 1k intro
 "Fifty Shades of Grey".
 

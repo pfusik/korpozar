@@ -2,6 +2,6 @@ run: korpozar.xex
 	start $<
 
 %.xex: %.asx
-	xasm -q -o $@ $<
+	xasm -o $@ $<
 
 .DELETE_ON_ERROR:
