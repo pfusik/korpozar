@@ -1,3 +1,5 @@
+DEBUG	equ	0
+
 font1	equ	$2000
 font2	equ	$2400
 scr	equ	$3740
@@ -15,6 +17,9 @@ threshold	equ	$83
 	org	$80
 	eif
 main
+	ift	DEBUG
+	mwa	#vbl	$222
+	eif
 	ldy	#0
 	sty	ptr
 :COMPATIBLE	lda	#$19
@@ -42,16 +47,19 @@ playnote
 	lda	freqs
 noteptr	equ	*-2
 	beq	startmsx
+	lsr	@
 	sta	^20
 	inc	noteptr
-	mva	#tempo/2+1	tempoctr
+	lda	#tempo/2
+	scc:asl	@
+	sta	tempoctr
 
 loop
 	lda	#17-3
 	cmp:rne	^4b
 
 	dec	tempoctr
-	beq	playnote
+	bmi	playnote
 
 	ldy	#40
 light_my_fire
@@ -66,10 +74,18 @@ light_my_fire
 	sty	$26f
 	ldx	>scr
 fire_page
+	ift	0
 	lda	20
 	and	#1
 	add	>font1+$300
+	eli	COMPATIBLE
+	lda	font_interlace->scr,x
+	els
+	lda	$ee52->scr,x
+	eor	#$0b^>font1
+	eif
 	sta	$2f4
+;	lda	^4b
 ;	sta	$600
 ;	inc	*-2
 	ift	COMPATIBLE
@@ -137,6 +153,17 @@ threshold	equ	*-1
 	tya
 	bne	init_font_line
 	rts
+
+	ift	DEBUG
+vbl
+	mva	$2f4	$600
+	inc	*-2
+	jmp	$c0e2
+	eif
+
+	ift	COMPATIBLE
+font_interlace	dta h(font2,font2,font1,font1)
+	eif
 
 	icl	'msx.asx'
 

@@ -29,7 +29,8 @@ Video > Frame blending.
 File index:
 korpozar.xex: small intro
 korpozcp.xex: compatible version
-(16 KB RAM, different loaders)
+  (16 KB RAM, custom ROM,
+   different loaders)
 
 Polish dictionary:
 korpo (slang) = corporation

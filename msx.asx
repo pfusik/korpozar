@@ -1,15 +1,15 @@
 audc	equ	$a5
 tempo	equ	14
 
-E	equ	$5f
-A	equ	$47
-H	equ	$3f
-Cs	equ	$38
-Gs	equ	$4b
+E	equ	$5f*2
+A	equ	$47*2
+H	equ	$3f*2
+Cs	equ	$38*2
+Gs	equ	$4b*2
 
 freqs
-	dta	E,A,H,Cs,H,H,H,Gs,Gs,Gs,Gs,Gs
-	dta	E,A,H,Cs,H,H,H,H,H,H,H,H
-	dta	E,A,H,Cs,H,H,H,Gs,Gs,Gs,Gs,Gs
-	dta	Gs,A,Gs,E,E,E,E,E,E,E,E,E
-	dta	0
+	dta	E,A,H,Cs,H+1,H,Gs,Gs+1,Gs+1
+	dta	E,A,H,Cs,H+1,H+1,H+1,H+1
+	dta	E,A,H,Cs,H+1,H,Gs,Gs+1,Gs+1
+	dta	Gs,A,Gs,E,E+1,E+1,E+1,E+1
+:COMPATIBLE	dta	0
