@@ -26,6 +26,11 @@ If you use the Altirra emulator:
 System > Configure System >
 Video > Frame blending.
 
+File index:
+korpozar.xex: small intro
+korpozcp.xex: compatible version
+(16 KB RAM, different loaders)
+
 Polish dictionary:
 korpo (slang) = corporation
 pozar (noun) = fire
