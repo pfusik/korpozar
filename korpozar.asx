@@ -6,9 +6,8 @@ scr	equ	$3740
 scr_aligned	equ	scr&$ff00
 scr_end	equ	$3b00
 
-ptr	equ	$80
-shade	equ	$82
-tempoctr	equ	$83
+shade	equ	$80
+tempoctr	equ	shade
 
 	ift	COMPATIBLE
 threshold	equ	$83
@@ -17,12 +16,20 @@ threshold	equ	$83
 	org	$80
 	eif
 main
+
 	ift	DEBUG
 	mwa	#vbl	$222
 	eif
+
 	ldy	#0
+	ift	COMPATIBLE
+ptr	equ	$81
 	sty	ptr
-:COMPATIBLE	lda	#$19
+	lda	#$19
+	els
+ptr	equ	*-1
+	eif
+
 	ldx	>font1
 	stx	$2c8
 	jsr	init_font
