@@ -1,4 +1,4 @@
-audc	equ	$a5
+maxaudc	equ	$af
 tempo	equ	14
 
 E	equ	$5f

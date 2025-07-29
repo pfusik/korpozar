@@ -58,6 +58,7 @@ noteptr	equ	*-2
 	bmi	rest
 	beq	startmsx
 	sta	^20
+	mva	#maxaudc	z:audc
 	ldy	#$3f
 	lda	#$80+tempo/2
 rest
@@ -71,12 +72,24 @@ loop
 
 	dec	tempoctr
 	bpl	playnote
+	ift	COMPATIBLE
+audc	equ	$83
+	lda	audc
+	els
+	lda	#0
+audc	equ	*-1
+	eif
+	cmp	#$a0
+	bcc	silence
+	sta	^21
+	dec	audc
+silence
 
 	ldy	#40
 light_my_fire
 	lda	^2a
 	ift	COMPATIBLE
-strength	equ	$83
+strength	equ	$84
 	and	strength
 	els
 	and	#$3f
@@ -115,7 +128,7 @@ fire_page
 	stx	z:fire_pixel+2
 	stx	z:fire_pixel+5
 	stx	z:fire_pixel+8
-	stx	z:fire_pixel+11
+	stx	fire_pixel+11
 	eif
 fire_pixel
 	lda	scr_aligned,y
