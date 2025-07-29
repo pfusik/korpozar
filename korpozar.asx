@@ -25,6 +25,7 @@ main
 	ift	COMPATIBLE
 ptr	equ	$81
 	sty	ptr
+	sty	{lsr @}*$101
 	lda	#$19
 	els
 ptr	equ	*-1
@@ -51,18 +52,21 @@ startmsx
 :!COMPATIBLE	mva	<notes	z:noteptr
 
 playnote
+	ldy	#$1f
 	lda	notes
 noteptr	equ	*-2
 	bmi	rest
 	beq	startmsx
 	sta	^20
+	ldy	#$3f
 	lda	#$80+tempo/2
 rest
+	sty	z:strength
 	sta	tempoctr
 	inc	noteptr
 
 loop
-	lda	#17-3
+	lda	#13-3
 	cmp:rne	^4b
 
 	dec	tempoctr
@@ -71,7 +75,13 @@ loop
 	ldy	#40
 light_my_fire
 	lda	^2a
+	ift	COMPATIBLE
+strength	equ	$83
+	and	strength
+	els
 	and	#$3f
+strength	equ	*-1
+	eif
 	sta	scr_end,y
 	dey
 	bpl	light_my_fire
@@ -113,7 +123,8 @@ fire_pixel
 	adc	scr_aligned+40,y
 	adc	scr_aligned+41,y
 	sbc	#2
-	bcc	fire_low
+	scs
+	dta	{and a:}
 	lsr	@
 	lsr	@
 	ift	COMPATIBLE
@@ -122,7 +133,6 @@ fire_store
 	els
 	sta	(fire_pixel+1),y
 	eif
-fire_low
 	iny
 	bne	fire_pixel
 	inx
