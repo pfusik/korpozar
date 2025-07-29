@@ -40,26 +40,26 @@ main
 	eif
 	mva	#audc	^21
 startmsx
-:COMPATIBLE	mva	<freqs	noteptr
-:!COMPATIBLE	mva	<freqs	z:noteptr
+:COMPATIBLE	mva	<notes	noteptr
+:!COMPATIBLE	mva	<notes	z:noteptr
 
 playnote
-	lda	freqs
+	lda	notes
 noteptr	equ	*-2
+	bmi	rest
 	beq	startmsx
-	lsr	@
 	sta	^20
-	inc	noteptr
-	lda	#tempo/2
-	scc:asl	@
+	lda	#$80+tempo/2
+rest
 	sta	tempoctr
+	inc	noteptr
 
 loop
 	lda	#17-3
 	cmp:rne	^4b
 
 	dec	tempoctr
-	bmi	playnote
+	bpl	playnote
 
 	ldy	#40
 light_my_fire
