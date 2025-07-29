@@ -46,7 +46,6 @@ ptr	equ	*-1
 	els
 	mva	>scr	$bc25
 	eif
-	mva	#audc	^21
 startmsx
 :COMPATIBLE	mva	<notes	noteptr
 :!COMPATIBLE	mva	<notes	z:noteptr
@@ -79,7 +78,7 @@ audc	equ	$83
 	lda	#0
 audc	equ	*-1
 	eif
-	cmp	#$a0
+	cmp	#minaudc
 	bcc	silence
 	sta	^21
 	dec	audc
