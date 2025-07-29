@@ -13,6 +13,10 @@ Music by
 Lukasz 'X-Ray' Sychowicz
 <xray@scene.pl>
 
+Moral support by:
+Grey / Mystic Bytes
+Slaves
+
 Inspired by "Grill" 128-byte intro
 by Koala / Agenda.
 
@@ -28,7 +32,9 @@ Video > Frame blending.
 
 File index:
 korpozar.xex: small intro
-korpozcp.xex: compatible version
+  (64 KB RAM, standard ROM,
+   good loader)
+korpozco.xex: compatible version
   (16 KB RAM, custom ROM,
    different loaders)
 
@@ -46,7 +52,7 @@ Sword Soft, JAC!, XXL, Kaz, TDC,
 Duddie, PG, MaPa, Jell, Grzybson,
 Sikor.
 
-Coming soon to pouet.net.
+Coming soon to Demozoo and pouet.net.
 Video coming soon to YouTube.
 Source code:
 https://github.com/pfusik/korpozar
