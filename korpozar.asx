@@ -170,9 +170,8 @@ init_font_line
 	cmp	#$19
 threshold	equ	*-1
 	eif
-	lda	#0
-	scc:lda	#$10
-	adc	shade
+	lda	shade
+	scc:adc	#$10
 	sta	(ptr),y
 	iny
 	tya
