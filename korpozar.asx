@@ -11,21 +11,25 @@ tempoctr	equ	shade
 
 	ift	COMPATIBLE
 threshold	equ	$83
-	org	$3600
+	org	$3580
 	els
 	org	$80
 	eif
 main
 
-	ift	DEBUG
-	mwa	#vbl	$222
-	eif
-
 	ldy	#0
 	ift	COMPATIBLE
 ptr	equ	$81
 	sty	ptr
-	sty	{lsr @}*$101
+	sty	{lsr @}
+	tya
+cls
+	sta	scr,y
+	sta	scr_aligned+$100,y
+	sta	scr_aligned+$200,y
+	sta	scr_aligned+$300,y
+	iny
+	bne	cls
 	lda	#$19
 	els
 ptr	equ	*-1
@@ -33,13 +37,6 @@ ptr	equ	*-1
 
 	jsr	init_fonts
 
-	ift	COMPATIBLE
-	mva	$231	ptr+1
-	ldy	#$25
-	mva	>scr	(ptr),y
-	els
-	mva	>scr	$bc25
-	eif
 startmsx
 :COMPATIBLE	mva	<song	songptr
 :!COMPATIBLE	mva	<song	z:songptr
@@ -68,7 +65,7 @@ rest
 	inc	noteptr
 
 loop
-	lda	#13-3
+	lda	#15-3
 	cmp:rne	^4b
 
 	dec	tempoctr
@@ -137,8 +134,10 @@ fire_pixel
 	adc	scr_aligned+40,y
 	adc	scr_aligned+41,y
 	sbc	#2
-	scs
-	dta	{and a:}
+	bcs	fire_set
+:COMPATIBLE	dta	{and z:}
+:!COMPATIBLE	dta	{and a:}
+fire_set
 	lsr	@
 	lsr	@
 	ift	COMPATIBLE
@@ -156,6 +155,14 @@ fire_store
 	bcs	loop
 
 init_fonts
+	ift	COMPATIBLE
+	mva	$231	ptr+1
+	ldy	#$25
+	mva	>scr	(ptr),y
+	ldy	#0
+	els
+	mva	>scr	$bc25
+	eif
 	ldx	>font1
 	stx	$2c8
 	jsr	init_font
@@ -191,19 +198,24 @@ threshold	equ	*-1
 	bne	init_font_line
 	rts
 
-	ift	DEBUG
-vbl
-	mva	$2f4	$600
-	inc	*-2
-	jmp	$c0e2
-	eif
-
 	ift	COMPATIBLE
 font_interlace	dta h(font2,font2,font1,font1)
 	eif
 
 	icl	'msx.asx'
 
-	ift	COMPATIBLE
+	ert	*>scr
+	ift	DEBUG
+vbl
+	mva	$2f4	$600
+	inc	*-2
+	jmp	$c0e2
+init
+	mwa	#vbl	$222
+	jmp	main
+	ert	*>scr
+	run	init
+
+	eli	COMPATIBLE
 	run	main
 	eif
