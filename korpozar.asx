@@ -41,15 +41,23 @@ ptr	equ	*-1
 	mva	>scr	$bc25
 	eif
 startmsx
-:COMPATIBLE	mva	<notes	noteptr
-:!COMPATIBLE	mva	<notes	z:noteptr
+:COMPATIBLE	mva	<song	songptr
+:!COMPATIBLE	mva	<song	z:songptr
+
+playpattern
+	lda	song
+songptr	equ	*-2
+	beq	startmsx
+	inc	songptr
+:COMPATIBLE	sta	noteptr
+:!COMPATIBLE	sta	z:noteptr
 
 playnote
 	ldy	#$1f
-	lda	notes
+	lda	pat0
 noteptr	equ	*-2
 	bmi	rest
-	beq	startmsx
+	beq	playpattern
 	sta	^20
 	mva	#maxaudc	z:audc
 	ldy	#$3f
