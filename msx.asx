@@ -15,14 +15,14 @@ P4	equ	$80+tempo/2*4
 P7	equ	$80+tempo/2*7
 
 	ert	<*==0
+pat1	dta	E2,A2,H2,Cs3,H2,P7
 pat0	dta	E2,A2,H2,Cs3,H2,P2,Gs2,P4,0
-pat1	dta	E2,A2,H2,Cs3,H2,P7,0
 pat2	dta	Gs2,A2,Gs2,E2,E2,P7,0
+pat4	dta	E3,Ds3,Cs3,H2,Ds3,P7
 pat3	dta	E3,Ds3,Cs3,H2,Ds3,P1,H2,Cs3,P1,A2,H2,P1,0
-pat4	dta	E3,Ds3,Cs3,H2,Ds3,P7,0
 	ert	>*!=>pat0
 song
-	dta	l(pat0,pat1,pat0,pat2,pat0,pat1,pat0,pat2)
-	dta	l(pat3,pat4,pat3,pat2,pat3,pat4,pat3,pat2)
+:2	dta	l(pat0,pat1,pat2)
+:2	dta	l(pat3,pat4,pat2)
 :COMPATIBLE	dta	0
 	ert	>*!=>song
