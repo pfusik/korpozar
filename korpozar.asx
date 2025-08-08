@@ -202,6 +202,7 @@ threshold	equ	*-1
 font_interlace	dta h(font2,font2,font1,font1)
 	eif
 
+SAP	equ	0
 	icl	'msx.asx'
 
 	ert	*>scr
