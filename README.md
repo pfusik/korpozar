@@ -18,8 +18,8 @@ System > Configure System > Video > Frame blending.
 Credits
 -------
 
-Design and programming by Piotr '0xF' Fusik.
-Cover of Vangelis' music by Łukasz 'X-Ray' Sychowicz.
+- Design and programming by Piotr '0xF' Fusik
+- Cover of Vangelis' music by Łukasz 'X-Ray' Sychowicz
 
 Used Tools
 ----------
